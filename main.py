@@ -1,5 +1,4 @@
 import os
-import json
 import requests
 import traceback
 from fastapi import FastAPI, HTTPException
@@ -14,11 +13,8 @@ class CopyReq(BaseModel):
     fileName: str
 
 def get_drive_access_token():
-    info = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
-    info["private_key"] = info["private_key"].replace("\\n", "\n")
-
-    creds = service_account.Credentials.from_service_account_info(
-        info,
+    creds = service_account.Credentials.from_service_account_file(
+        "credentials.json",
         scopes=["https://www.googleapis.com/auth/drive.readonly"],
     )
 
