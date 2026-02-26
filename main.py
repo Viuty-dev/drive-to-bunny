@@ -14,10 +14,9 @@ class CopyReq(BaseModel):
 
 def get_drive_access_token():
     creds = service_account.Credentials.from_service_account_file(
-        "credentials.json",
+        os.path.join(os.path.dirname(__file__), "credentials.json"),
         scopes=["https://www.googleapis.com/auth/drive.readonly"],
     )
-
     creds.refresh(GoogleRequest())
     return creds.token
 
